@@ -29,12 +29,12 @@ internal class Program
 
         while (playing)
         {
-            Console.WriteLine("-- Select an option --");
+           /* Console.WriteLine("-- Select an option --");
             Console.WriteLine();
             Console.WriteLine("Press 1 to attack");
-            Console.WriteLine("Press 2 to quit");
+            Console.WriteLine("Press 2 to quit");*/
 
-            string selected_option = Console.ReadLine();
+            string selected_option = Menu.CombatMenu();
 
             if (selected_option == "1")
             {
@@ -46,7 +46,7 @@ internal class Program
                 }
             }
             //Console.ReadKey();
-            else if (selected_option == "2")
+            else if (selected_option == "3")
             {
                 playing = false;
                 break;
