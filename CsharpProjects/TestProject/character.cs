@@ -1,5 +1,6 @@
 using System;
 using System.Dynamic;
+using System.Runtime;
 using System.Security.Cryptography.X509Certificates;
 
 namespace RolePlay
@@ -10,6 +11,7 @@ namespace RolePlay
         public string Name {get;set;}
         public int Strength{get; private set;}
         public int Health {get;  set;}
+        public int Speed { get; set;}
         public bool IsAlive { get ; set;}
 
         public Weapon EquippedWeapon {get;set;} 
@@ -18,16 +20,17 @@ namespace RolePlay
         public Character(string name)
         {
             Name = name;
-            EquippedWeapon = new Weapon("Fist",3,3);
+            EquippedWeapon = new Weapon("Fist",3,3,1);
             IsAlive = true;
         }
-        public Character (string name, int strength,int health)
+        public Character (string name, int strength,int health,int speed)
         {
             Name = name;
             Strength = strength;
             Health = health;
             IsAlive = true;
-            EquippedWeapon = new Weapon("Fist", 3, 3);
+            Speed = speed;
+            EquippedWeapon = new Weapon("Fist", 3, 3,1);
         }
 
         //Methods
@@ -51,6 +54,48 @@ namespace RolePlay
             }
             
         }
+        public void DisplayStats()
+        {
+            Console.WriteLine($"Name : {Name}");
+            Console.WriteLine($"Strength : {Strength}");
+            Console.WriteLine($"Health : {Health}");
+            Console.WriteLine($"Speed : {Speed}");
+        }
         public void AddWeapon(Weapon weapon) => EquippedWeapon = weapon;
+
+
+        public static Character UserCreateCharacter()
+        {
+
+            string charName = "";
+
+            //create a random numbe object
+            Random roll = new Random();
+
+
+            Console.WriteLine("=== Welcome to create character ===");
+
+            //create a loop to make sure empmty name string is not entered
+            while (string.IsNullOrEmpty(charName))
+            {
+                Console.WriteLine("Please enter your character name:");
+                charName = Console.ReadLine().Trim(); // Trim leading/trailing whitespace
+
+                if (string.IsNullOrEmpty(charName))
+                {
+                    Console.WriteLine("Character name cannot be empty. Please try again.");
+                }
+            }
+            //charName = Console.ReadLine();
+            
+            int strength = roll.Next(1, 20);
+            int health = roll.Next(1, 20);
+            int speed = roll.Next(1, 20);
+
+            Console.WriteLine("Character created");
+
+            return new Character(charName, strength, health,speed);
+        }
+
     }
 }

@@ -8,19 +8,22 @@ internal class Program
     private static void Main(string[] args)
     //create attacker
     {
-        Character attack = new Character("dave",10,10);
-        Weapon attackweapon = new Weapon("sword",20,10);
+        Character attackingChar = Character.UserCreateCharacter();
+        attackingChar.DisplayStats();
+        Weapon attackweapon = Weapon.CreateSword();
         
-        attack.AddHealth(20);
-        attack.AddWeapon(attackweapon);
+        attackingChar.AddHealth(20);
+        attackingChar.AddWeapon(attackweapon);
 
 
-    // create defender
-        Character defend = new Character("bex",20,20);
-        Weapon defendweapon = new Weapon("axe",20,10);
+    // create defendingCharer
+        Character defendingChar = new Character("bex",20,20,10);
+        Weapon defendweapon = Weapon.CreateSword();
         
-        defend.AddHealth(20);
-        defend.AddWeapon(attackweapon);
+        defendingChar.AddHealth(20);
+        defendingChar.AddWeapon(attackweapon);
+
+       // Character NewChar =  Character.UserCreateCharacter();
 
         //initiate combat
         
@@ -29,18 +32,15 @@ internal class Program
 
         while (playing)
         {
-           /* Console.WriteLine("-- Select an option --");
-            Console.WriteLine();
-            Console.WriteLine("Press 1 to attack");
-            Console.WriteLine("Press 2 to quit");*/
+           
 
             string selected_option = Menu.CombatMenu();
 
             if (selected_option == "1")
             {
-                Combat fight = new Combat(attack, defend);
+                Combat fight = new Combat(attackingChar, defendingChar);
                 fight.DealDamage();
-                if (defend.IsAlive == false)
+                if (defendingChar.IsAlive == false)
                 {
                     playing = false;
                 }
@@ -50,6 +50,10 @@ internal class Program
             {
                 playing = false;
                 break;
+            }
+            else
+            {
+                Console.WriteLine("Please enter a valid option");
             }
 
             
