@@ -9,15 +9,17 @@ internal class Program
     //create attacker
     {
         Character attackingChar = Character.UserCreateCharacter();
-        attackingChar.DisplayStats();
+       // attackingChar.DisplayStats();
         Weapon attackweapon = Weapon.CreateSword();
-        
+        Console.WriteLine(attackingChar.WeaponsList.Count);
+        Console.WriteLine(attackingChar.WeaponsList[0].Type);
+
         attackingChar.AddHealth(20);
         attackingChar.AddWeapon(attackweapon);
 
 
     // create defendingCharer
-        Character defendingChar = new Character("bex",20,20,10);
+        Character defendingChar = Character.UserCreateCharacter();
         Weapon defendweapon = Weapon.CreateSword();
         
         defendingChar.AddHealth(20);
@@ -50,6 +52,11 @@ internal class Program
             {
                 playing = false;
                 break;
+            }
+            else if (selected_option == "4")
+            {
+                defendingChar.DisplayStats();
+                Console.WriteLine();
             }
             else
             {

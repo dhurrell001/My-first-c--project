@@ -2,6 +2,9 @@ using System;
 using System.Dynamic;
 using System.Runtime;
 using System.Security.Cryptography.X509Certificates;
+using System.Collections.Generic;
+
+
 
 namespace RolePlay
 {
@@ -13,6 +16,9 @@ namespace RolePlay
         public int Health {get;  set;}
         public int Speed { get; set;}
         public bool IsAlive { get ; set;}
+        public List<Weapon> WeaponsList { get; set; } //create a list to store weapons
+
+
 
         public Weapon EquippedWeapon {get;set;} 
         // Constructors
@@ -30,6 +36,7 @@ namespace RolePlay
             Health = health;
             IsAlive = true;
             Speed = speed;
+            WeaponsList =  new List<Weapon>();
             EquippedWeapon = new Weapon("Fist", 3, 3,1);
         }
 
@@ -60,6 +67,12 @@ namespace RolePlay
             Console.WriteLine($"Strength : {Strength}");
             Console.WriteLine($"Health : {Health}");
             Console.WriteLine($"Speed : {Speed}");
+            Console.WriteLine("=== Weapons ===");
+            for (int i = 0; i < WeaponsList.Count; i++)
+            {
+                Console.WriteLine(WeaponsList[i].Type);
+                Console.WriteLine("yay");
+            }
         }
         public void AddWeapon(Weapon weapon) => EquippedWeapon = weapon;
 
@@ -92,10 +105,19 @@ namespace RolePlay
             int health = roll.Next(1, 20);
             int speed = roll.Next(1, 20);
 
+            
+
             Console.WriteLine("Character created");
 
-            return new Character(charName, strength, health,speed);
+            Character character =  new Character(charName, strength, health,speed);
+
+            character.WeaponsList.Add(Weapon.CreateDagger());
+            character.WeaponsList.Add(Weapon.CreateSword());
+            character.WeaponsList.Add(Weapon.CreateHammer());
+
+            return character;
         }
 
     }
 }
+
