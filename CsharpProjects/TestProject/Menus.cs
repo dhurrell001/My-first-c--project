@@ -1,9 +1,12 @@
 ﻿using System;
+using RolePlay;
 
 public class Menu
 {
 	public static string CombatMenu()
+
 	{
+        //Console.Clear();    
         Console.WriteLine("==== Select an option ====");
         Console.WriteLine("1: Attack");
         Console.WriteLine("2: Change Weapon");
@@ -15,6 +18,7 @@ public class Menu
     
     public static string MainMenu()
     {
+        Console.Clear();
         Console.WriteLine("=== MAIN MENU ===");
         Console.WriteLine("==== Select an option ====");
         Console.WriteLine("1: Create a new characeter");
@@ -24,4 +28,17 @@ public class Menu
 
         return Console.ReadLine(); 
     }
+    public static string ChangeWeapon(Character character) 
+    {
+        Console.WriteLine("=== Weapon Selction ===");
+        Console.WriteLine();
+        for (int i = 0; i < character.WeaponsList.Count; i++) 
+        {
+            Console.WriteLine($"{i+1}: {character.WeaponsList[i].Type}");
+        }
+
+        return Console.ReadLine();
+        
+    }
+
 }

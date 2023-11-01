@@ -10,8 +10,7 @@ namespace RolePlay
         public int Defence {get;set;}
         public int Speed { get;set;}
 
-       
-
+   
         //constructors
         public Weapon (string name, int damage, int defence, int speed)
         {

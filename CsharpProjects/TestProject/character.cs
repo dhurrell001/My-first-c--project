@@ -71,7 +71,7 @@ namespace RolePlay
             Console.WriteLine("=== Weapons ===");
             for (int i = 0; i < WeaponsList.Count; i++)
             {
-                Console.WriteLine(WeaponsList[i].Type);
+                Console.WriteLine($"{WeaponsList[i].Type} Damage : {WeaponsList[i].Damage} Defence : {WeaponsList[i].Defence} Speed : {WeaponsList[i].Speed}");
                 
             }
         }
@@ -89,6 +89,7 @@ namespace RolePlay
             //create a loop to make sure empmty name string is not entered
             while (string.IsNullOrEmpty(charName))
             {
+                Console.WriteLine();
                 Console.WriteLine("Please enter your character name:");
                 charName = Console.ReadLine().Trim(); // Trim leading/trailing whitespace
 
@@ -96,22 +97,22 @@ namespace RolePlay
                 {
                     Console.WriteLine("Character name cannot be empty. Please try again.");
                 }
-            }
-            //charName = Console.ReadLine();
+            };
             
             int strength = roll.Next(1, 20);
             int health = roll.Next(1, 20);
             int speed = roll.Next(1, 20);
 
-            
-
-            Console.WriteLine("Character created");
-
+      
             Character character =  new Character(charName, strength, health,speed);
 
             character.WeaponsList.Add(Weapon.CreateDagger());
             character.WeaponsList.Add(Weapon.CreateSword());
             character.WeaponsList.Add(Weapon.CreateHammer());
+
+            Console.WriteLine("Character created");
+            Console.WriteLine();
+            character.DisplayStats();
 
             return character;
         }

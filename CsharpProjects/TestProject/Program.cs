@@ -7,30 +7,9 @@ using RolePlay;
 internal class Program
 {
     private static void Main(string[] args)
-    //create attacker
+   
     {
-        //  Character attackingChar = Character.UserCreateCharacter();
-        // attackingChar.DisplayStats();
-        //  Weapon attackweapon = Weapon.CreateSword();
-        //  Console.WriteLine(attackingChar.WeaponsList.Count);
-        //   Console.WriteLine(attackingChar.WeaponsList[0].Type);
-
-        //   attackingChar.AddHealth(20);
-        //  attackingChar.AddWeapon(attackweapon);
-
-
-        //create defendingCharer
-        //  Character defendingChar = Character.UserCreateCharacter();
-        //   Weapon defendweapon = Weapon.CreateSword();
-
-        //  defendingChar.AddHealth(20);
-        //  defendingChar.AddWeapon(attackweapon);
-
-        // Character NewChar =  Character.UserCreateCharacter();
-
-        //initiate combat
-
-
+       
         Character PlayerOne = null;
         Character PlayerTwo = null;
         bool running = true;
@@ -42,12 +21,14 @@ internal class Program
             switch (startOption)
             {
                 case "1":
+                    Console.Clear();    
                     Console.WriteLine("Player One create your character");
-                    PlayerOne = Character.UserCreateCharacter();
+                    PlayerOne = Character.UserCreateCharacter();              
                     Console.ReadLine();
                     Console.Clear();    
                     Console.WriteLine("Player Two create your character");
-                    PlayerTwo = Character.UserCreateCharacter();
+                    PlayerTwo = Character.UserCreateCharacter();                  
+
                     Console.ReadLine();
                     Console.Clear();
                     break;
@@ -68,9 +49,6 @@ internal class Program
                     break;
             }
         }
-        
-
-
 
     }
 
@@ -84,41 +62,48 @@ internal class Program
         {
             attackingChar = playerOne;
             defendingChar = playerTwo;
-            Console.WriteLine($"{attackingChar.Name} goes first !!");
+            Console.WriteLine($"{attackingChar.Name} goes first !!\n");
+
         }
         else
         {
             attackingChar = playerTwo;
             defendingChar = playerOne;
-            Console.WriteLine($"{attackingChar.Name} goes first !!");
+            Console.WriteLine($"{attackingChar.Name} goes first !!\n");
         }
 
         bool playing = true;
         while (playing)
         {
 
-            Console.WriteLine($"==== {attackingChar.Name}'s Turn ====");
+            if (defendingChar.IsAlive == false || attackingChar.IsAlive == false)
+            {
+                playing = false;
+                Console.WriteLine("******* GAME OVER *********");
+                Console.ReadLine();
+                Menu.MainMenu();
+                break;
+            }
+            Console.WriteLine($"==== {attackingChar.Name}'s Turn ====\n");
             string selected_option = Menu.CombatMenu();
 
             if (selected_option == "1")
             {
-               
-                if (defendingChar.IsAlive == false || attackingChar.IsAlive == false)
-                {
-                    playing = false;
-                }
-                else
-                {
-                    
-                    Combat.DealDamage(attackingChar, defendingChar);
-                    (attackingChar, defendingChar) = (defendingChar, attackingChar);
-                    Console.ReadLine();
-                    Console.Clear();
-                }
+                     
+                Combat.DealDamage(attackingChar, defendingChar);
+                (attackingChar, defendingChar) = (defendingChar, attackingChar);
+                Console.ReadLine();
+                Console.Clear();
+            }
                
 
-            }
+            
             //Console.ReadKey();
+            else if (selected_option == "2")
+            {
+                Menu.ChangeWeapon(attackingChar); 
+                break;
+            }
             else if (selected_option == "3")
             {
                 playing = false;
