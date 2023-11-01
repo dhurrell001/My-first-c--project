@@ -3,12 +3,12 @@ using System.Dynamic;
 
 namespace RolePlay
 {
-    class Weapon 
+    public class Weapon 
     {
         public string Type {get; private set;}
-        private int Damage {get;set;}
-        private int Defence {get;set;}
-        private int Speed { get;set;}
+        public int Damage {get;set;}
+        public int Defence {get;set;}
+        public int Speed { get;set;}
 
        
 

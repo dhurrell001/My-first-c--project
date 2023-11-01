@@ -9,7 +9,7 @@ using System.Collections.Generic;
 namespace RolePlay
 {
 
-    class Character
+    public class Character
     {
         public string Name {get;set;}
         public int Strength{get; private set;}
@@ -28,6 +28,7 @@ namespace RolePlay
             Name = name;
             EquippedWeapon = new Weapon("Fist",3,3,1);
             IsAlive = true;
+            WeaponsList = null;
         }
         public Character (string name, int strength,int health,int speed)
         {
@@ -71,7 +72,7 @@ namespace RolePlay
             for (int i = 0; i < WeaponsList.Count; i++)
             {
                 Console.WriteLine(WeaponsList[i].Type);
-                Console.WriteLine("yay");
+                
             }
         }
         public void AddWeapon(Weapon weapon) => EquippedWeapon = weapon;
@@ -84,9 +85,6 @@ namespace RolePlay
 
             //create a random numbe object
             Random roll = new Random();
-
-
-            Console.WriteLine("=== Welcome to create character ===");
 
             //create a loop to make sure empmty name string is not entered
             while (string.IsNullOrEmpty(charName))

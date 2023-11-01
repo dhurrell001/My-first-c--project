@@ -18,7 +18,7 @@ public class Menu
         Console.WriteLine("=== MAIN MENU ===");
         Console.WriteLine("==== Select an option ====");
         Console.WriteLine("1: Create a new characeter");
-        Console.WriteLine("2: Start game);
+        Console.WriteLine("2: Start game");
         Console.WriteLine("3: Quit");
         
 
