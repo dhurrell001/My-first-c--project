@@ -15,17 +15,17 @@ namespace RolePlay
             if (attackDamage > 0)
             {
                 defender.RemoveHealth(attackDamage);
-                Console.WriteLine($"{attacker.Name} struck for {hitDamage} points");
+                Console.WriteLine($"{attacker.Name} struck you, causing {hitDamage} points of damage\n");
             }
             else
             {
-                Console.WriteLine($"{attacker.Name} couldn't penetrate {defender.Name}'s defense");
+                Console.WriteLine($"{defender.Name} skillfully blocked your attack\n");
             }
 
             Console.WriteLine($"{defender.Name}'s current health is {defender.Health}");
             if (!defender.IsAlive)
             {
-                Console.WriteLine($"{defender.Name} is dead.");
+                Console.WriteLine($"\n==== { defender.Name} is dead. ====");
             }
         }
     }

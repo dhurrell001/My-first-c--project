@@ -80,12 +80,12 @@ internal class Program
             {
                 playing = false;
                 Console.WriteLine("******* GAME OVER *********");
-                Console.ReadLine();
+                Console.ReadLine(); 
                 Menu.MainMenu();
                 break;
             }
             Console.WriteLine($"==== {attackingChar.Name}'s Turn ====\n");
-            string selected_option = Menu.CombatMenu();
+            string selected_option = Menu.CombatMenu();  
 
             if (selected_option == "1")
             {

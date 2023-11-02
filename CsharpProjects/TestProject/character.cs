@@ -28,7 +28,7 @@ namespace RolePlay
             Name = name;
             EquippedWeapon = new Weapon("Fist",3,3,1);
             IsAlive = true;
-            WeaponsList = null;
+            WeaponsList = new List<Weapon>(); ;
         }
         public Character (string name, int strength,int health,int speed)
         {
@@ -56,7 +56,7 @@ namespace RolePlay
             }
             else
             {
-                 Console.WriteLine($"You took {health} damage");
+                 //Console.WriteLine($"You took {health} damage");
                  IsAlive = true;
                  return true;
             }
