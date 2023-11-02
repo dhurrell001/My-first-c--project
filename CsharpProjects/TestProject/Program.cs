@@ -1,53 +1,109 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
 using System;
+using System.ComponentModel.Design;
 using RolePlay;
 
 internal class Program
 {
     private static void Main(string[] args)
-    //create attacker
+   
     {
-        Character attackingChar = Character.UserCreateCharacter();
-       // attackingChar.DisplayStats();
-        Weapon attackweapon = Weapon.CreateSword();
-        Console.WriteLine(attackingChar.WeaponsList.Count);
-        Console.WriteLine(attackingChar.WeaponsList[0].Type);
+       
+        Character PlayerOne = null;
+        Character PlayerTwo = null;
+        bool running = true;
 
-        attackingChar.AddHealth(20);
-        attackingChar.AddWeapon(attackweapon);
+        while (running)
+        {
+            string startOption = Menu.MainMenu();
 
+            switch (startOption)
+            {
+                case "1":
+                    Console.Clear();    
+                    Console.WriteLine("Player One create your character");
+                    PlayerOne = Character.UserCreateCharacter();              
+                    Console.ReadLine();
+                    Console.Clear();    
+                    Console.WriteLine("Player Two create your character");
+                    PlayerTwo = Character.UserCreateCharacter();                  
 
-    // create defendingCharer
-        Character defendingChar = Character.UserCreateCharacter();
-        Weapon defendweapon = Weapon.CreateSword();
-        
-        defendingChar.AddHealth(20);
-        defendingChar.AddWeapon(attackweapon);
+                    Console.ReadLine();
+                    Console.Clear();
+                    break;
+                case "2":
+                    Console.Clear();
+                    if (PlayerOne != null && PlayerTwo != null)
+                    {
+                        PlayGame(PlayerOne, PlayerTwo);
+                        break;
+                    }
+                    break;
+                   
+                case "3":
+                    running = false;
+                    break;
+                default:
+                    Console.WriteLine("Please enter a valid option");
+                    break;
+            }
+        }
 
-       // Character NewChar =  Character.UserCreateCharacter();
+    }
 
-        //initiate combat
-        
-        
+    private static void PlayGame(Character playerOne, Character playerTwo)
+
+    {
+        Character attackingChar;
+        Character defendingChar;
+
+        if (playerOne.Speed > playerTwo.Speed)
+        {
+            attackingChar = playerOne;
+            defendingChar = playerTwo;
+            Console.WriteLine($"{attackingChar.Name} goes first !!\n");
+
+        }
+        else
+        {
+            attackingChar = playerTwo;
+            defendingChar = playerOne;
+            Console.WriteLine($"{attackingChar.Name} goes first !!\n");
+        }
+
         bool playing = true;
-
         while (playing)
         {
-           
 
-            string selected_option = Menu.CombatMenu();
+            if (defendingChar.IsAlive == false || attackingChar.IsAlive == false)
+            {
+                playing = false;
+                Console.WriteLine("******* GAME OVER *********");
+                Console.ReadLine(); 
+                Menu.MainMenu();
+                break;
+            }
+            Console.WriteLine($"==== {attackingChar.Name}'s Turn ====\n");
+            string selected_option = Menu.CombatMenu();  
 
             if (selected_option == "1")
             {
-                Combat fight = new Combat(attackingChar, defendingChar);
-                fight.DealDamage();
-                if (defendingChar.IsAlive == false)
-                {
-                    playing = false;
-                }
+                     
+                Combat.DealDamage(attackingChar, defendingChar);
+                (attackingChar, defendingChar) = (defendingChar, attackingChar);
+                Console.ReadLine();
+                Console.Clear();
             }
+               
+
+            
             //Console.ReadKey();
+            else if (selected_option == "2")
+            {
+                Menu.ChangeWeapon(attackingChar); 
+                break;
+            }
             else if (selected_option == "3")
             {
                 playing = false;
@@ -55,19 +111,17 @@ internal class Program
             }
             else if (selected_option == "4")
             {
-                defendingChar.DisplayStats();
-                Console.WriteLine();
+                Console.Clear();
+                attackingChar.DisplayStats();
+                Console.ReadLine();
             }
             else
             {
                 Console.WriteLine("Please enter a valid option");
             }
 
-            
+
         }
-
-
-
     }
         
         
