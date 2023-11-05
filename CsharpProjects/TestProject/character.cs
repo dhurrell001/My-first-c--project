@@ -56,7 +56,7 @@ namespace RolePlay
             }
             else
             {
-                 //Console.WriteLine($"You took {health} damage");
+                 
                  IsAlive = true;
                  return true;
             }
@@ -68,6 +68,7 @@ namespace RolePlay
             Console.WriteLine($"Strength : {Strength}");
             Console.WriteLine($"Health : {Health}");
             Console.WriteLine($"Speed : {Speed}");
+            Console.WriteLine($"Equipped weapon : {EquippedWeapon.Type}\n");
             Console.WriteLine("=== Weapons ===");
             for (int i = 0; i < WeaponsList.Count; i++)
             {
@@ -79,6 +80,8 @@ namespace RolePlay
 
 
         public static Character UserCreateCharacter()
+
+            // Used to create new characters from Mainmenu before start of the game
         {
 
             string charName = "";
@@ -106,6 +109,7 @@ namespace RolePlay
       
             Character character =  new Character(charName, strength, health,speed);
 
+            // poplate the Weapons list.
             character.WeaponsList.Add(Weapon.CreateDagger());
             character.WeaponsList.Add(Weapon.CreateSword());
             character.WeaponsList.Add(Weapon.CreateHammer());

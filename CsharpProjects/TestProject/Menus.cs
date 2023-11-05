@@ -28,13 +28,15 @@ public class Menu
 
         return Console.ReadLine(); 
     }
-    public static string ChangeWeapon(Character character) 
+    public static string ChangeWeaponMenu(Character character) 
     {
         Console.WriteLine("=== Weapon Selction ===");
         Console.WriteLine();
         for (int i = 0; i < character.WeaponsList.Count; i++) 
         {
-            Console.WriteLine($"{i+1}: {character.WeaponsList[i].Type}");
+            Console.WriteLine($"{i+1}: {character.WeaponsList[i].Type}  " +
+                $"Damage : {character.WeaponsList[i].Damage} Defence : {character.WeaponsList[i].Defence} " +
+                $"Speed : {character.WeaponsList[i].Speed}\n");
         }
 
         return Console.ReadLine();

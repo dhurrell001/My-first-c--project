@@ -19,11 +19,14 @@ namespace RolePlay
             Defence = defence;
             Speed = speed;
         }
+
+        // Methods 
+
         public int Attack()
         {
             Random roll = new Random();
             int hitDamage = roll.Next(1,Damage);
-            //Console.WriteLine($"You struck for {hitDamage} points");
+
             return hitDamage;
 
         }

@@ -3,7 +3,7 @@ using System;
 namespace RolePlay
 {
 
-    // In the Combat class
+    
     public class Combat
     {
         public static void DealDamage(Character attacker, Character defender)
@@ -15,7 +15,7 @@ namespace RolePlay
             if (attackDamage > 0)
             {
                 defender.RemoveHealth(attackDamage);
-                Console.WriteLine($"{attacker.Name} struck you, causing {hitDamage} points of damage\n");
+                Console.WriteLine($"You struck {defender.Name} causing {hitDamage} points of damage\n");
             }
             else
             {
@@ -25,6 +25,7 @@ namespace RolePlay
             Console.WriteLine($"{defender.Name}'s current health is {defender.Health}");
             if (!defender.IsAlive)
             {
+                Console.WriteLine("\nYou delivered a fatal blow !!");
                 Console.WriteLine($"\n==== { defender.Name} is dead. ====");
             }
         }
