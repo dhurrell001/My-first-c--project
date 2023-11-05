@@ -21,18 +21,22 @@ internal class Program
             switch (startOption)
             {
                 case "1":
+                    // Create character option selected
                     Console.Clear();    
                     Console.WriteLine("Player One create your character");
-                    PlayerOne = Character.UserCreateCharacter();              
-                    Console.ReadLine();
-                    Console.Clear();    
+                    PlayerOne = Character.UserCreateCharacter();  
+                    ClearConsoleAndPause();
+                    //Console.ReadLine();
+                    //Console.Clear();    
                     Console.WriteLine("Player Two create your character");
-                    PlayerTwo = Character.UserCreateCharacter();                  
+                    PlayerTwo = Character.UserCreateCharacter();
+                    ClearConsoleAndPause();
 
-                    Console.ReadLine();
-                    Console.Clear();
+                    //Console.ReadLine();
+                    //Console.Clear();
                     break;
                 case "2":
+                    // Start gane option selected. Checks that characters exist before starting game
                     Console.Clear();
                     if (PlayerOne != null && PlayerTwo != null)
                     {
@@ -53,28 +57,22 @@ internal class Program
     }
 
     private static void PlayGame(Character playerOne, Character playerTwo)
+        // Start gameplay logic.
 
     {
         Character attackingChar;
         Character defendingChar;
 
-        if (playerOne.Speed > playerTwo.Speed)
-        {
-            attackingChar = playerOne;
-            defendingChar = playerTwo;
-            Console.WriteLine($"{attackingChar.Name} goes first !!\n");
+        (attackingChar, defendingChar) = DetermineFirstPlayer(playerOne, playerTwo);
+        Console.WriteLine($"{attackingChar.Name} goes first !!\n");
 
-        }
-        else
-        {
-            attackingChar = playerTwo;
-            defendingChar = playerOne;
-            Console.WriteLine($"{attackingChar.Name} goes first !!\n");
-        }
+        
+
 
         bool playing = true;
         while (playing)
         {
+            // check if both players are aliveif either is dead game is over. TODO change to allow for a play again option
 
             if (defendingChar.IsAlive == false || attackingChar.IsAlive == false)
             {
@@ -88,28 +86,48 @@ internal class Program
             string selected_option = Menu.CombatMenu();  
 
             if (selected_option == "1")
+            // Attack option selected. Passes characters to Deal damage method in combat class
+            // switches players so defender becomes attacker for next turn
             {
-                     
+
                 Combat.DealDamage(attackingChar, defendingChar);
-                (attackingChar, defendingChar) = (defendingChar, attackingChar);
-                Console.ReadLine();
-                Console.Clear();
+                (attackingChar, defendingChar) = (defendingChar, attackingChar); 
+                ClearConsoleAndPause(); 
+
             }
                
 
-            
-            //Console.ReadKey();
             else if (selected_option == "2")
+                // Change weapon option selected.
             {
-                Menu.ChangeWeapon(attackingChar); 
-                break;
+                string weaponSelectOption = Menu.ChangeWeaponMenu(attackingChar); 
+                // Change equipped weapom TODO maybe use weaponSelectOption result as an index so it is not hardcoded
+
+                switch (weaponSelectOption)
+                {
+                    case "1":
+                        attackingChar.EquippedWeapon = attackingChar.WeaponsList[0];
+                        break;
+                    case "2":
+                        attackingChar.EquippedWeapon = attackingChar.WeaponsList[1];
+                        break;
+                    case "3":
+                        attackingChar.EquippedWeapon = attackingChar.WeaponsList[2];
+                        break;
+                    default:
+                        Console.WriteLine("Please enter a vaild option");
+                        break;
+                }
+                continue; // carry on in combatMenu not 'break' back to main menu
             }
             else if (selected_option == "3")
+                // Quit combat option selected
             {
                 playing = false;
                 break;
             }
             else if (selected_option == "4")
+                // Display character statistics using DisplayStats method in Character class.
             {
                 Console.Clear();
                 attackingChar.DisplayStats();
@@ -123,6 +141,31 @@ internal class Program
 
         }
     }
-        
-        
+    private static void ClearConsoleAndPause()
+        // Waits for user to press a key before clearing console
+    {
+        Console.ReadLine();
+        Console.Clear();
+    }
+    private static (Character, Character) DetermineFirstPlayer(Character playerOne, Character playerTwo)
+
+    // Calculate which player attacks first based on speed property
+    // and assign as defender and attacker
+    {
+        Character attackingChar, defendingChar;
+
+        if (playerOne.Speed > playerTwo.Speed)
+        {
+            attackingChar = playerOne;
+            defendingChar = playerTwo;
+        }
+        else
+        {
+            attackingChar = playerTwo;
+            defendingChar = playerOne;
+        }
+
+        return (attackingChar, defendingChar);
+    }
+
 }
