@@ -26,15 +26,12 @@ internal class Program
                     Console.WriteLine("Player One create your character");
                     PlayerOne = Character.UserCreateCharacter();  
                     ClearConsoleAndPause();
-                    //Console.ReadLine();
-                    //Console.Clear();    
+                        
                     Console.WriteLine("Player Two create your character");
                     PlayerTwo = Character.UserCreateCharacter();
                     ClearConsoleAndPause();
-
-                    //Console.ReadLine();
-                    //Console.Clear();
                     break;
+
                 case "2":
                     // Start gane option selected. Checks that characters exist before starting game
                     Console.Clear();
@@ -48,6 +45,7 @@ internal class Program
                 case "3":
                     running = false;
                     break;
+
                 default:
                     Console.WriteLine("Please enter a valid option");
                     break;
@@ -100,24 +98,10 @@ internal class Program
             else if (selected_option == "2")
                 // Change weapon option selected.
             {
-                string weaponSelectOption = Menu.ChangeWeaponMenu(attackingChar); 
-                // Change equipped weapom TODO maybe use weaponSelectOption result as an index so it is not hardcoded
+                int weaponSelectOption = Menu.ChangeWeaponMenu(attackingChar);
+                
+                attackingChar.EquippedWeapon = attackingChar.WeaponsList[weaponSelectOption];
 
-                switch (weaponSelectOption)
-                {
-                    case "1":
-                        attackingChar.EquippedWeapon = attackingChar.WeaponsList[0];
-                        break;
-                    case "2":
-                        attackingChar.EquippedWeapon = attackingChar.WeaponsList[1];
-                        break;
-                    case "3":
-                        attackingChar.EquippedWeapon = attackingChar.WeaponsList[2];
-                        break;
-                    default:
-                        Console.WriteLine("Please enter a vaild option");
-                        break;
-                }
                 continue; // carry on in combatMenu not 'break' back to main menu
             }
             else if (selected_option == "3")

@@ -28,9 +28,9 @@ public class Menu
 
         return Console.ReadLine(); 
     }
-    public static string ChangeWeaponMenu(Character character) 
+    public static int ChangeWeaponMenu(Character character) 
     {
-        Console.WriteLine("=== Weapon Selction ===");
+        Console.WriteLine("=== Weapon Selection ===");
         Console.WriteLine();
         for (int i = 0; i < character.WeaponsList.Count; i++) 
         {
@@ -38,9 +38,16 @@ public class Menu
                 $"Damage : {character.WeaponsList[i].Damage} Defence : {character.WeaponsList[i].Defence} " +
                 $"Speed : {character.WeaponsList[i].Speed}\n");
         }
+        int choice;
 
-        return Console.ReadLine();
-        
+        if (int.TryParse(Console.ReadLine(), out choice) && choice >=1 && choice <= character.WeaponsList.Count)
+        {
+            return choice - 1;
+        }
+
+        Console.WriteLine("Please enter a valid choice");
+        return ChangeWeaponMenu(character);
+
     }
 
 }
